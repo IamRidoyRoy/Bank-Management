@@ -16,11 +16,19 @@ function UpdateTotal(fieldId, amount) {
 }
 
 // Balance Update 
-function balanceUpdate(amount) {
+function balanceUpdate(amount, isAdd) {
     const balance = document.getElementById('balance-total');
     const balanceInText = parseFloat(balance.innerText);
-    const newBalance = balanceInText + amount;
+    let newBalance;
+    if (isAdd == true) {
+        newBalance = balanceInText + amount;
+    }
+    else {
+        newBalance = balanceInText - amount;
+    }
     balance.innerText = newBalance;
+
+
 }
 
 //Handle  Deposit 
@@ -28,7 +36,7 @@ document.getElementById('deposit-button').addEventListener('click',
     function () {
         const amount = getInputValue('deposit-input');
         UpdateTotal('total-deposit', amount);
-        balanceUpdate(amount);
+        balanceUpdate(amount, true);
     }
 )
 
@@ -37,6 +45,7 @@ document.getElementById('withdraw-button').addEventListener('click',
     function () {
         const amount = getInputValue('withdraw-input');
         UpdateTotal('withdraw-text', amount);
+        balanceUpdate(amount, false);
 
     }
 )

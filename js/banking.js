@@ -35,8 +35,12 @@ function balanceUpdate(amount, isAdd) {
 document.getElementById('deposit-button').addEventListener('click',
     function () {
         const amount = getInputValue('deposit-input');
-        UpdateTotal('total-deposit', amount);
-        balanceUpdate(amount, true);
+        // Error handle 
+        if (amount > 0) {
+            UpdateTotal('total-deposit', amount);
+            balanceUpdate(amount, true);
+        }
+
     }
 )
 
@@ -44,8 +48,11 @@ document.getElementById('deposit-button').addEventListener('click',
 document.getElementById('withdraw-button').addEventListener('click',
     function () {
         const amount = getInputValue('withdraw-input');
-        UpdateTotal('withdraw-text', amount);
-        balanceUpdate(amount, false);
-
+        const balance = document.getElementById('balance-total').innerText;
+        // amount cant't be negative and if not have balance we can't withdraw 
+        if (amount > 0 && balance >= amount) {
+            UpdateTotal('withdraw-text', amount);
+            balanceUpdate(amount, false);
+        }
     }
 )
